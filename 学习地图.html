@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>本地数据看板 · 学习地图</title>
+<style>
+  :root{
+    --ink:#1f2328; --muted:#6b7280; --line:#e5e7eb;
+    --c1:#2f6fed; --c2:#0e9f6e; --c3:#f59e0b; --c4:#8b5cf6; --c5:#e11d48; --c6:#0891b2;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:32px 28px 60px;
+    font-family:"Microsoft YaHei","PingFang SC","Segoe UI",system-ui,sans-serif;
+    background:#f6f7f9; color:var(--ink); line-height:1.65;
+  }
+  .wrap{max-width:1180px;margin:0 auto}
+  header{text-align:center;margin-bottom:26px}
+  header h1{margin:0 0 8px;font-size:26px;letter-spacing:.5px}
+  header p{margin:0;color:var(--muted);font-size:13.5px}
+
+  .center{
+    margin:0 auto 26px; max-width:520px; text-align:center;
+    background:linear-gradient(135deg,#1f2937,#374151); color:#fff;
+    padding:20px 24px; border-radius:16px; box-shadow:0 8px 24px rgba(0,0,0,.12);
+  }
+  .center b{font-size:19px;display:block;margin-bottom:4px}
+  .center span{font-size:12.5px;opacity:.8}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+
+  .card{
+    background:#fff;border-radius:14px;padding:16px 18px 14px;
+    box-shadow:0 1px 3px rgba(0,0,0,.06); border-left:5px solid var(--line);
+  }
+  .card h2{
+    margin:0 0 12px;font-size:15.5px;display:flex;align-items:center;gap:9px;
+  }
+  .badge{
+    width:24px;height:24px;border-radius:8px;display:inline-flex;
+    align-items:center;justify-content:center;font-size:12.5px;color:#fff;font-weight:700;flex:0 0 auto;
+  }
+  .stage{margin-left:auto;font-size:11.5px;color:var(--muted);font-weight:400}
+
+  ul{list-style:none;margin:0;padding:0}
+  li{position:relative;padding:3px 0 3px 15px;font-size:13.3px;color:#374151}
+  li::before{
+    content:"";position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;
+    background:var(--dot,#cbd5e1);
+  }
+  li code{
+    background:#f1f5f9;border:1px solid #e2e8f0;border-radius:4px;
+    padding:0 4px;font-size:12px;font-family:Consolas,Monaco,monospace;color:#0f172a;
+  }
+  .sub{margin:10px 0 4px;font-size:12px;color:var(--muted);letter-spacing:.4px}
+
+  .c1{--dot:var(--c1)} .c1 .badge{background:var(--c1)} .c1{border-left-color:var(--c1)}
+  .c2{--dot:var(--c2)} .c2 .badge{background:var(--c2)} .c2{border-left-color:var(--c2)}
+  .c3{--dot:var(--c3)} .c3 .badge{background:var(--c3)} .c3{border-left-color:var(--c3)}
+  .c4{--dot:var(--c4)} .c4 .badge{background:var(--c4)} .c4{border-left-color:var(--c4)}
+  .c5{--dot:var(--c5)} .c5 .badge{background:var(--c5)} .c5{border-left-color:var(--c5)}
+  .c6{--dot:var(--c6)} .c6 .badge{background:var(--c6)} .c6{border-left-color:var(--c6)}
+
+  .pit{
+    margin-top:18px;background:#fff7f7;border:1px solid #fecdd3;border-radius:14px;padding:16px 18px;
+  }
+  .pit h2{margin:0 0 10px;font-size:15px;color:#9f1239}
+  .pit ul{display:grid;grid-template-columns:repeat(2,1fr);gap:2px 22px}
+  @media(max-width:860px){.pit ul{grid-template-columns:1fr}}
+  .pit li::before{background:#fda4af}
+  .pit li{color:#4c0519}
+
+  .next{
+    margin-top:18px;background:#eff6ff;border:1px dashed #93c5fd;border-radius:14px;
+    padding:14px 18px;font-size:13.2px;color:#1e3a8a;
+  }
+  .next b{display:block;margin-bottom:6px}
+  footer{margin-top:26px;text-align:center;color:#9ca3af;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>本地数据看板 · 学习地图</h1>
+    <p>从「print 你好」到「双击就能跑的 exe」· 14 节 · 6 条主线</p>
+  </header>
+
+  <div class="center">
+    <b>本地数据看板</b>
+    <span>打开 CSV → 看表格 → 看折线图 → 自己选横轴纵轴 → 打包成 exe</span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card c1">
+      <h2><span class="badge">1</span>Python 语法基础<span class="stage">第 1–5 节</span></h2>
+      <div class="sub">语言本身</div>
+      <ul>
+        <li><code>print()</code> / 变量 / 字符串引号</li>
+        <li>三种类型：<code>int</code> <code>float</code> <code>str</code>，互相转换</li>
+        <li>列表：索引从 <b>0</b> 开始、切片含头不含尾、<code>append</code></li>
+        <li>字典：<code>{"键": 值}</code>，按名字取而不是按位置</li>
+        <li>判断：<code>if / elif / else</code>，<code>==</code> 比较、<code>=</code> 赋值</li>
+        <li>循环：<code>for x in 列表</code>、<code>range()</code> 按序号、<code>enumerate</code></li>
+        <li>函数：<code>def</code>、参数、默认值、<b><code>return</code> 不等于 <code>print</code></b></li>
+      </ul>
+    </div>
+
+    <div class="card c2">
+      <h2><span class="badge">2</span>Qt 界面<span class="stage">第 6、9 节</span></h2>
+      <div class="sub">窗口是怎么长出来的</div>
+      <ul>
+        <li>五步骨架：<code>app</code> → <code>win</code> → 控件 → <code>show</code> → <code>exec</code></li>
+        <li>布局：<code>QVBoxLayout</code> 竖 / <code>QHBoxLayout</code> 横 / 布局可嵌套</li>
+        <li><code>addWidget</code> 放控件、<code>addLayout</code> 放布局、<code>setLayout</code> 挂到窗口</li>
+        <li>控件：<code>QLabel</code> <code>QPushButton</code> <code>QComboBox</code> <code>QTableWidget</code></li>
+        <li>表格要点：先 <code>setRowCount/ColumnCount</code>，再 <code>setItem(行,列,格子对象)</code></li>
+        <li>图表：<code>pg.PlotWidget</code> + <code>curve.setData(x, y)</code></li>
+        <li><code>QSplitter</code>：可拖动的上下分栏</li>
+      </ul>
+    </div>
+
+    <div class="card c3">
+      <h2><span class="badge">3</span>事件与信号<span class="stage">第 7、11 节</span></h2>
+      <div class="sub">程序为什么会对点击有反应</div>
+      <ul>
+        <li>事件循环：程序停在 <code>app.exec()</code> 等鼠标和键盘</li>
+        <li>信号 → 槽：<code>button.clicked.connect(函数)</code></li>
+        <li><b>connect 里绝不加括号</b>：加括号会立刻执行一次</li>
+        <li><code>clicked</code> 带 <code>bool</code>、<code>currentIndexChanged</code> 带 <code>int</code></li>
+        <li>槽函数要接住参数：<code>def draw_chart(index=None)</code></li>
+        <li><code>blockSignals</code>：批量改控件前先静音</li>
+        <li><code>QFileDialog.getOpenFileName</code> 返回 <code>(路径, 筛选器)</code></li>
+      </ul>
+    </div>
+
+    <div class="card c4">
+      <h2><span class="badge">4</span>数据处理<span class="stage">第 8、11 节</span></h2>
+      <div class="sub">pandas 的日常动作</div>
+      <ul>
+        <li><code>pd.read_csv()</code> → <b>DataFrame</b>（整张表）</li>
+        <li><code>df["列"]</code> → <b>Series</b>（一列）；多一层方括号就还是表格</li>
+        <li><code>shape</code> / <code>columns</code> / <code>head()</code> / <code>iloc[行,列]</code></li>
+        <li><code>mean</code> <code>max</code> <code>min</code> <code>sum</code> / <code>to_list()</code></li>
+        <li><code>is_numeric_dtype</code>：挑出能做纵轴的列</li>
+        <li><code>to_numeric(..., errors="coerce")</code>：脏数据变 NaN 而不是崩</li>
+        <li>数据源 ≠ 界面：计算都在 df 上，表格只是「画出来」</li>
+      </ul>
+    </div>
+
+    <div class="card c5">
+      <h2><span class="badge">5</span>代码结构<span class="stage">第 12、13 节</span></h2>
+      <div class="sub">怎么让代码不乱</div>
+      <ul>
+        <li>分层依据：<b>它认不认识界面控件</b></li>
+        <li><code>data_utils.py</code>：纯数据函数，不许出现 Qt</li>
+        <li>依赖单向：界面 → 数据，不能反过来</li>
+        <li>模块：<code>import data_utils</code> → <code>data_utils.函数()</code></li>
+        <li>类：<code>class MainWindow(QWidget)</code>、<code>__init__</code>、<code>super().__init__()</code></li>
+        <li><code>self.df</code> 取代 <code>global df</code>，每个窗口各有一份数据</li>
+        <li><code>if __name__ == "__main__":</code> 防止被 import 时乱执行</li>
+        <li>拆的是「组件」不是「步骤」；<b>200 行不要拆</b></li>
+      </ul>
+    </div>
+
+    <div class="card c6">
+      <h2><span class="badge">6</span>交付打包<span class="stage">第 14 节</span></h2>
+      <div class="sub">从代码到别人能用的东西</div>
+      <ul>
+        <li><code>pyinstaller --noconfirm --windowed --name X 文件.py</code></li>
+        <li>产物：<code>dist\X\X.exe</code> + <code>_internal\</code>（180MB）</li>
+        <li><b>不能只发 exe</b>：要整个文件夹压缩</li>
+        <li>打包后 <code>__file__</code> 指向 <code>_internal</code>（资源文件的坑）</li>
+        <li>闪退看不到错 → 去掉 <code>--windowed</code> 打 debug 版</li>
+        <li><code>--onedir</code> 启动快 / <code>--onefile</code> 单文件但慢</li>
+        <li>改代码必须重新打包；做成 <code>打包.bat</code> 一键搞定</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="pit">
+    <h2>⚠ 亲手撞过的坑（这些不是知识，是经验）</h2>
+    <ul>
+      <li><code>Qtwidgets</code> / <code>Qwidget</code> 大小写 —— Python 区分大小写</li>
+      <li>PyCharm 自动导入猜错：<code>from main import label</code> 会直接启动第二个程序</li>
+      <li>「未解析的引用 win」→ 不是错误，是名字定义在后面；<b>别去 pip install win</b></li>
+      <li><code>column_columns</code> 拼错 —— 报 AttributeError 先去查 <code>def</code> 清单</li>
+      <li><code>y.to_list()</code> —— 上游改成返回 list 了，下游还在按 Series 用</li>
+      <li><code>KeyError: '收盘'</code> —— 写死列名的代价，改成用户选列</li>
+      <li>相对路径找不到文件 —— 用 <code>os.path.dirname(__file__)</code> 算绝对路径</li>
+      <li>包发过去打不开 —— 忘了把 <code>_internal</code> 一起发</li>
+    </ul>
+  </div>
+
+  <div class="next">
+    <b>接下来可以走的三条路</b>
+    ① 清理历史文件（`main.py` / `dashboard*.py` / `table_demo.py` / `data_test.py`）&nbsp;&nbsp;
+    ② 补完 `app.py` 的类重构，用它重新打包&nbsp;&nbsp;
+    ③ <b>真的拿它去用</b> —— 用出需求，再回来加功能（真日期轴 / 筛选 / 排序 / 导出 PNG）
+  </div>
+
+  <footer>本地数据看板 · 学习地图 · 生成于 2026-11-25</footer>
+</div>
+</body>
+</html>

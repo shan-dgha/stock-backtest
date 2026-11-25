@@ -1,0 +1,27 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ---- 虚拟环境（绝对不要提交，900+ MB）----
+.venv/
+venv/
+env/
+
+# ---- 打包产物 ----
+build/
+dist/
+*.spec
+
+# ---- PyCharm / IDE 配置 ----
+.idea/
+*.iml
+
+# ---- 备份与临时文件 ----
+*.bak
+*.tmp
+Thumbs.db
+.DS_Store
+
+# ---- 本地数据（如果不想公开自己的数据，取消下面注释）----
+# *.csv
